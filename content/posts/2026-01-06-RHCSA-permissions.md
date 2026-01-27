@@ -99,7 +99,8 @@ So, example rules like -rw-r--r--" could be explaines as:
 
 No execute (x) option does not allows to enter directory.
 
-'''[ananas@TestBarbarys01 ~]$ ls -l
+'''bash
+[ananas@TestBarbarys01 ~]$ ls -l
 total 4
 -rw-r--r--. 1 ananas ananas  98 Jan 11 20:30 1
 drw-rw-rw-. 3 ananas ananas  59 Jan 11 18:53 labExamples
@@ -110,54 +111,69 @@ bash: cd: labExamples/: Permission denied
 
 No read(r),but wx options are here. Execute(x) option allows to enter directory, but no read(r) option does not allows to list directory content. 
 
-nas@TestBarbarys01 ~]$ ls -l
+'''bash
+[ananas@TestBarbarys01 ~]$ ls -l
 total 0
 d-wx-wx-wx. 3 ananas ananas  59 Jan 11 18:53 labExamples
 drwxr-xr-x. 8 ananas ananas 161 Jan  6 18:34 N2stas1a.github.io
 [ananas@TestBarbarys01 ~]$ cd labExamples/
 [ananas@TestBarbarys01 labExamples]$ ls -l
 ls: cannot open directory '.': Permission denied
+'''
 
  Special permissions bits(RHCSA-relevant)
  SUID - special file permission allowing to execute a file from the * file owner*.
  
-'''[ananas@TestBarbarys01 labExamples]$ chmod u+s file1
+'''bash
+[ananas@TestBarbarys01 labExamples]$ chmod u+s file1
 [ananas@TestBarbarys01 labExamples]$ ls -l
 total 4
+'''
+
+'''bash
 -rw-r--r--. 1 ananas ananas 297 Jan 11 20:42 1
--rwsrwxrwx. 1 ananas ananas   0 Jan 11 20:48 file1'''
+-rwsrwxrwx. 1 ananas ananas   0 Jan 11 20:48 file1
+'''
 
  SGID - permission which allows to the file to be executed from the group that's
  owns a file. Additionaly, files which are created in a directory will inherit a 
  group where SGID is set. 
  
- [ananas@TestBarbarys01 labExamples]$ ls -l
+'''bash
+[ananas@TestBarbarys01 labExamples]$ ls -l
 total 8
--rw-r--r--. 1 ananas ananas 297 Jan 11 20:42 1
+i-rw-r--r--. 1 ananas ananas 297 Jan 11 20:42 1
 -rw-r--r--. 1 ananas ananas 202 Jan 11 21:07 2
 -rwsrwxrwx. 1 ananas ananas   0 Jan 11 20:48 file1
 drwx------. 2 root   root     6 Jan 11 16:44 part8
 drwxrwsrwx. 2 ananas ananas   6 Jan 11 21:09 SGIDxample
 [ananas@TestBarbarys01 labExamples]$ ls -ld SGIDxample/
 drwxrwsrwx. 2 ananas ananas 6 Jan 11 21:09 SGIDxample/
+'''
+
+ 777 permissions could be over permissive for created files. So, umask could be
+ implemented to substract a permissions. 
+
+
+ Sticky bit - permission which is restricting file deletion. Only file *owner* (and
+ root) are able to delete files within this directory.
+
+ '''bash
 [ananas@TestBarbarys01 labExamples]$ mkdir STICKY
 [ananas@TestBarbarys01 labExamples]$ chmod +t STICKY/
 [ananas@TestBarbarys01 labExamples]$ ls -ld STICKY/
 drwxr-xr-t. 2 ananas ananas 6 Jan 11 21:19 STICKY/
+'''
 
-[ananam@TestBarbarys01 labExamples]$ umask
-0022
+ Umask - is a command to set permissions for files which are created by user.
+ 777 permissions could be over permissive for created files. So, umask could be
+ implemented to substract a permissions. 
 
+ '''bash 
+[ananas@TestBarbarys01 labExamples]$ umask 022
+[ananas@TestBarbarys01 labExamples]$ mkdir umask3'''
 
-
- Sticky bit -permission which is restricting file deletion. Only file *owner* (and
- root) are able to delete files within this directory.
-
- [show]
-###
-
-
-
+'''bash
 [ananas@TestBarbarys01 labExamples]$ ls -ld umaskXample/
 drwxr-xr-x. 2 ananas ananas 6 Jan 11 21:20 umaskXample/
 [ananas@TestBarbarys01 labExamples]$ umask 077
@@ -166,13 +182,7 @@ drwxr-xr-x. 2 ananas ananas 6 Jan 11 21:20 umaskXample/
 drwx------. 2 ananas ananas 6 Jan 11 21:20 umask2
 [ananas@TestBarbarys01 labExamples]$ umask 022
 [ananas@TestBarbarys01 labExamples]$ mkdir umask3
-###
-
- Umask - is a command to set permissions for files which are created by user.
- 777 permissions could be over permissive for created files. So, umask could be
- implemented to substract a permissions. 
- [show]
-
+'''
 
  Default maximum rules are: 
  666 (rw-rw-rw-) for files;
@@ -190,10 +200,4 @@ Does your user has a possibility to execute needed directory? – check executio
 Does your user belongs to the group allowed to execute file\directory? – check group using '''id [User]''' and '''group [user]''' commands.
 “Permission denied on a script” – execution (x) permission letter must be implemented to the file\directory.
 “I changed permissions but it still fails” – verify the file path correctness. Verify command and command path correctness. 
-
- 
-
-
- 
-
 
