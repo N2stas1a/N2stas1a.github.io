@@ -17,7 +17,13 @@ tasks:
       --logLevel debug
       --environment $HUGO_ENV
   show-drafts:
-    cmd: grep -iR 'draft' {{.POST_DIR}}
+    cmd: "grep -iR 'draft' {{.POST_DIR}}"
+  deps:update-precommit:
+    cmds:
+      - pre-commit clean
+      - pre-commit migrate-config
+      - pre-commit validate-config
+      - pre-commit autoupdate
   post:
     desc: "post | new"
     requires:
