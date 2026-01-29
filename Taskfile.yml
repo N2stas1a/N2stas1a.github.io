@@ -1,0 +1,29 @@
+---
+version: "3"
+
+env:
+  HUGO_ENV: development
+  POST_DIR: "./content/posts"
+  POST_DATE: "$(date --utc --iso-8601)"
+
+tasks:
+  serve:
+    cmd: >-
+      hugo server
+      --disableFastRender
+      --buildDrafts
+      --buildFuture
+      --buildExpired
+      --logLevel debug
+      --environment $HUGO_ENV
+  show-drafts:
+    cmd: grep -iR 'draft' {{.POST_DIR}}
+  post:
+    desc: "post | new"
+    requires:
+      vars: ["title"]
+    vars:
+      file: "{{.POST_DIR}}/{{.POST_DATE}}-{{.title}}.md"
+    cmds:
+      - hugo new {{.file}}
+      - vim {{.file}}
