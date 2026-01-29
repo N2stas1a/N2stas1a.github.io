@@ -24,6 +24,7 @@ tasks:
       - pre-commit migrate-config
       - pre-commit validate-config
       - pre-commit autoupdate
+      - pre-commit
   post:
     desc: "post | new"
     requires:
