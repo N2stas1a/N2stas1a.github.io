@@ -30,15 +30,16 @@ user command execution as "user switched to root and executed X command".
 '''Id'''
 uid=1001(ananas) gid=1001(ananas) groups=1001(ananas),10(wheel) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023'''
 
-'''Id username
+'''Id username'''
+After new user creation, user receiving primary group to be entered in.
+Primary group is intened to manage files which are created by this user.
+Also, supplementary groups are all of extra groups intended to share files between users by adding users in a supplementary groups.
 
-While creating, new user enters in a primary group with its name. Primary group is intened to manage files which are created by this user.
-Also, user can enter supplementary groups which are allow to share files
-between users by adding users in a supplementary groups.
-
-Based on example presented above
 '''uid=1001(ananas) gid=1001(ananas) groups=1001(ananas),10(wheel)'''
-output could be exaplined as uid=id and username, gid= primary group name, groups = supplementary groups user included in.
+
+'''uid= 1001 - ananas' user id
+gid = 1001 - primary group id
+groups = ananas (user's primary group),wheel (user's supplementary group)'''
 
 #3 Creating user(useradd)
 
@@ -97,9 +98,8 @@ ls: cannot access 'bob': No such file or directory
 userdel: user 'alise' does not exist
 [root@TestBarbarys01 home]#'''
 
--r option recursevely removes files from the user directory with a user home directory itself. -r option removes
-file related to this certain deleted user only. It's not able to delete files in the other file system (which could
-be removed manually only).
+-r option removes file related to this certain deleted user only. It's not able to delete files in the other file system (which could be removed manually only).
+'''userdel -r''' removes home dir, but NOT guarantee files removing elsewhere.
 
 #6 Сreating groups (groupadd)
 
@@ -115,7 +115,7 @@ parameters are defined in a etc/login.defs [check]
 
 “locking” means a temprorary log in password lock for a user.
 Account expiration could be set in a etc/login.defs. Account is disable after expire date.Lock-is a temporary block for the user account.
-
+In other words, locking password prevents account authentification user password, but account is still active and could be used with other auth methods, expiration removes login entirely.
 
 '''root@TestBarbarys01 ~]# passwd -l alise
 passwd: password changed.
@@ -172,9 +172,7 @@ visudo: /etc/sudoers.tmp unchanged
 [root@TestBarbarys01 etc]# visudo -c
 /etc/sudoers: parsed OK'''
 
-Visudo allows to edit the sudoers file in a safe fashio. Visudo lock the sudoers
-file against of multople simultaneous edits, provides basic sanity check and
-checks for parse errors.
+Visudo allows to edit the sudoers file in a safe fashion. Visudo lock the sudoers file against of multople simultaneous edits, provides basic sanity check and checks for parse errors.
 
 '''
 [root@TestBarbarys01 ~]# id alise
@@ -216,7 +214,6 @@ su: Authentication failure'''
 
 'Authentification failure' error is active.
 
-"Group change not efective" - 
+"Group change not efective" - new login session is requied. 
 
-
-
+Try '''exit''' and log again.
