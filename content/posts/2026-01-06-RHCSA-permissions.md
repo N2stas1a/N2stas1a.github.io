@@ -128,7 +128,7 @@ Chmod 700 dir:
 0 - No read,write,execute for group and others
 Directory permissions are: rwx------
 
-#5 Directories vs files
+# 5 Directories vs files
 
 read, write and execute permission could be implemented to the:
 
