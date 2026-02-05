@@ -1,9 +1,9 @@
-baseURL:     "https://tenhishadow.github.io/"
+baseURL: "https://n2stas1a.github.io/"
 languageCode: en-us
-title:        Notes
+title: Notes
 # https://github.com/adityatelange/hugo-PaperMod/wiki/Installation
 # https://github.com/adityatelange/hugo-PaperMod/wiki/Installation#sample-hugoyml
-theme:        ["PaperMod"]
+theme: ["PaperMod"]
 enableInlineShortcodes: true
 enableRobotsTXT: true
 buildDrafts: false
