@@ -164,9 +164,9 @@ drwxr-xr-x. 8 username username 161 Jan  6 18:34 N2stas1a.github.io
 ls: cannot open directory '.': Permission denied
 ```
 
-#6 Special permissions bits(RHCSA-relevant)
+# 6 Special permissions bits(RHCSA-relevant)
 
-##SUID
+## SUID
 
 SUID - special file permission allowing to execute a file from the _file owner_.
 
@@ -181,7 +181,7 @@ total 4
 -rwsrwxrwx. 1 username username   0 Jan 11 20:48 file1
 ```
 
-##SGID
+## SGID
 
 SGID - permission which allows to the file to be executed from the group that's owns a file. Additionaly, files which are created in a directory will inherit a group where SGID is set.
 
@@ -200,7 +200,7 @@ total 0
 drwx--S---. 2 username username 6 Feb  4 22:23 SGIDdir
 ```
 
-##Sticky bit
+## Sticky bit
 
 Sticky bit - permission which is restricting file deletion. Only file _owner_ (and
 root) are able to delete files within this directory.
@@ -212,7 +212,7 @@ root) are able to delete files within this directory.
 drwxr-xr-t. 2 username username 6 Jan 11 21:19 STICKY/
 ```
 
-##Umask
+## Umask
 
 Umask - is a command to set permissions for files which are created by user in a current runtime. After new umask implementation, permission rules for the newely created files, will be changed.
 777 permissions could be over permissive for created files. So, umask could be implemented to substract a permissions.
@@ -238,7 +238,7 @@ drwxr-xr-x. 2 username username 6 Feb  4 22:11 exampledir1
 drwx------. 2 username username 6 Feb  4 22:11 exampledir2
 ```
 
-##8 Troubleshooting cheatsheet
+## 8 Troubleshooting cheatsheet
 
 There is main troubleshooting pricnciples applicable to the permission topic:
 „“I can’t access a file” – check the file\directory permissions.
@@ -247,9 +247,10 @@ Please check file ownership:
 Does your user has a possibility to execute needed directory? – check execution options
 Does your user belongs to the group allowed to execute file\directory? – check group using
 
-````id [User]
+```
+id [User]
 and
-```group [user]
+group [user]
 ````
 
 “Permission denied on a script” – execution (x) permission letter must be implemented to the file\directory.
